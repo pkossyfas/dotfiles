@@ -1,0 +1,28 @@
+[user]
+	name = Polykarpos Kossyfas
+	user = pkossyfas
+
+[core]
+	preloadindex = true
+	editor = vim
+	pager = less -F -X
+
+[gc]
+	auto = 256
+
+[alias]
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	gone = ! git fetch -p && git for-each-ref --format '%(refname:short) %(upstream:track)' | awk '$2 == \"[gone]\" {print $1}' | xargs -r git branch -D
+	crypt-users = "! git log --format=full .git-crypt/keys/*/*/*.gpg | grep -E '^            .+' | sed 's/ *$//g' | awk '{gsub(/^[ \t]+/,\"\"); print $0 }'"
+
+[commit]
+	gpgsign = true
+
+[icdiff]
+	options = --line-numbers
+
+[push]
+	autoSetupRemote = true
+
+[pull]
+	rebase = true
