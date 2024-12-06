@@ -4,6 +4,8 @@ format = """
 $username\
 $hostname\
 $directory\
+$gcloud\
+$kubernetes\
 $golang\
 $terraform\
 $git_branch\
@@ -11,7 +13,6 @@ $git_commit\
 $git_state\
 $git_metrics\
 $git_status\
-$kubernetes\
 $sudo\
 $cmd_duration\
 $jobs\
@@ -38,15 +39,23 @@ show_always = true
 [kubernetes]
 disabled = true
 #⎈ 󰠳 ﴱ
-symbol = "󰠳" 
+symbol = "󰠳"
 #format = '[[$symbol](blue) [$context](dimmed purple):[$namespace](green)](cyan) '
 #format = '[\[[$symbol](blue) [$context](dimmed purple):[$namespace](green)\]](cyan) '
 format = '[\([$symbol](blue) [$context](dimmed purple):[$namespace](green)\)](cyan) '
 
+[[kubernetes.contexts]]
+# Using capture groups
+# Contexts from GKE, AWS and other cloud providers usually carry additional information, like the region/zone.
+# The following entry matches on the GKE format (`gke_projectname_zone_cluster-name`)
+# and renames every matching kube context into a more readable format (`gke-cluster-name`):
+context_pattern = "gke_.*_(?P<cluster>[\\w-]+)"
+context_alias = "gke-$cluster"
+
 [directory]
 style = 'bold blue'
-format = '[ﱮ $path]($style)[$read_only]($read_only_style) '
-read_only = " "
+format = '[ $path]($style)[$read_only]($read_only_style) '
+read_only = " "
 
 [git_branch]
 # 
@@ -81,6 +90,11 @@ format = '[$symbol $version](bold cyan) '
 [terraform]
 symbol = "󱁢"
 format = '[$symbol $version]($style) '
+
+[gcloud]
+disabled = true
+format = 'on [$symbol$project]($style) '
+symbol = '️󱇶 '
 
 [memory_usage]
 symbol = " "
@@ -126,4 +140,3 @@ symbol = " "
 
 [scala]
 symbol = " "
-
