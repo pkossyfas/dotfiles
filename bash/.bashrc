@@ -31,8 +31,7 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # kube prompt
-alias ko="gsed -i '/kubernetes/{ n; s/true/false/g }' ~/.config/starship.toml"
-alias kboff="gsed -i '/kubernetes/{ n; s/false/true/g }' ~/.config/starship.toml"
+alias ko="starship toggle kubernetes"
 
 # kube related
 alias kgp="kubectl get pods -o wide | awk '{print \$1,\$2,\$3,\$4,\$5,\$6,\$7}' | column -t"
